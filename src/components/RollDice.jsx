@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import Die from './Die';
 
 function RollDice() {
-  const [random, setRandom] = useState('3');
+  const [roll, setRoll] = useState({ rollOne: 'one', rollTwo: 'two' });
+
+  const numbers = ['one', 'two', 'three', 'four', 'five', 'six'];
 
   function handleClick() {
-    const randomNumber = Math.floor(Math.random() * 10) + 1;
-    setRandom(randomNumber);
-    console.log(randomNumber);
-    console.log(random);
+    let newDieOne = numbers[Math.floor(Math.random() * numbers.length)];
+    let newDieTwo = numbers[Math.floor(Math.random() * numbers.length)];
+    setRoll({ rollOne: newDieOne, rollTwo: newDieTwo });
   }
 
   return (
-    <div>
-      <Die number={random} />
-      {random === '7' ? (
-        <h2>The die only goes up to 6</h2>
-      ) : (
-        <button onClick={handleClick}>Random Number</button>
-      )}
+    <div className="container">
+      <div className="dice">
+        <Die number={roll.rollOne} />
+        <Die number={roll.rollTwo} />
+      </div>
+      <button onClick={handleClick}>Roll Dice</button>
     </div>
   );
 }
